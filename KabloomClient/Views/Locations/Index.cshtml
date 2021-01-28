@@ -64,9 +64,10 @@
         </div>
         @foreach (LocationGroup location in Model)
         {
-          <div class ="row">    
+              
             <div class="card-wrapper">
               <div data-w-id="394a9fbc-bf31-ea15-c0cd-7bd30ac59bf6" class="card">
+              <div class="card-front">
                 <h2 class="name">@location.Name</h2>
               </div>
               <div class="card-back">
@@ -75,9 +76,10 @@
                   <li class="list-item-3">@location.Location.City, @location.Location.State</li>
                   <li class="list-item-3">@location.Location.Country</li>
                 </ul>
+                </div>
               </div>
             </div>
-          </div>
+          
         }
       </section>
     </div>
