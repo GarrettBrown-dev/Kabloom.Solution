@@ -23,9 +23,9 @@
   <small>Last Updated: January 28th, 2021</small>
 </p>
 
-#### _._
+-----
 
-# 🧑‍💻 Contributers
+## 🧑‍💻 Contributors
 
 | Name                                                            | GitHub Profile                                          |
 | --------------------------------------------------------------- | ------------------------------------------------------- |
@@ -34,68 +34,104 @@
 | [Shannon Grantski](https://www.linkedin.com/in/grand-scheme/)   | [grand-scheme](https://github.com/grand-scheme)         |
 | [Garrett Brown](https://www.linkedin.com/in/garrett-brown-d/)   | [GarrettBrown-dev](https://github.com/GarrettBrown-dev) |
 
-# ℹ️ Description
+## Description
 
 Welcome to Kabloom! This application was created for all plant lovers and growers. Once on the home page, the user will be able to register an account with Kabloom for future use. Once the user has logged into their personal account, they will gain access to the Trefle API, which will provide them with 1,000's of plants to (one day) add to their garden!
 
-# Stretch Goals
+## Stretch Goals
 
 - Allow user to add specific plants from the Trefle API to their account to personalize their "garden".
 - Allow users to add information to each plant in their garden, such as watering times, date of planting and harvest dates.
 - Create another database to hold each user's plants information such as watering times, date of planting, and harvest dates.
 - Allow the user to search through the "Locations" database and add their region/area's garden shops to their account.
 
+---
+
 # 💾 Installation Requirements
 
 Software Requirements
 
-- An internet browser of your choice.
-- A code editor.
+- An internet browser of your choice
+- A code editor
 - .NET Core
 - MySQL
 - MySQL Workbench
 - Postman
+- API keys for Trefle and FourSquare -- instructions for these can be found below. 
 
-# 🖥️ Opening the Project on your Local System
+## 🖥️ Copying the Project to your Local System
 
-Open by Downloading or Cloning
+### Downloading or Cloning:
 
-- [Click to view Github repository](https://github.com/SarahGilbert064/Kabloom.Solution.git) Or simply paste the following url into your prefered browser https://github.com/SarahGilbert064/Kabloom.Solution
-- To Clone repository simply click the green Code button and copy the url.
-- Using a preferred terminal(Such as GitBash) use the command `git clone paste-url-here` in which ever directory you wish.
-- Open the newly cloned repo with your text editor, and open a terminal with GitBash.
-- In the terminal run command `cd KabloomClient`
-- In the terminal run command `dotnet restore`
-- In the terminal run command `dotnet build`
-- In the terminal run command `dotnet run`
-- Travel to `https://localhost:5001`to view in browser
+#### Cloning:
+- Using a preferred terminal (such as GitBash), navigate to the folder where you want to store this project.
+- Input the command: `$ git clone https://github.com/SarahGilbert064/Kabloom.Solution`
+  - If you would like to rename this directory, use: `$ git clone https://github.com/SarahGilbert064/Kabloom.Solution NAME-OF-YOUR-CHOICE`
 
-  # AppSettings
+#### Downloading:
+- On the GitHub website for this repository, click the green **CODE** button near the top of the page.
+- Click _Download ZIP_.
+- Save this file to your computer.
+- Extract this ZIP.
+-----
+## Updating and Creating Necessary Files
 
-  1. Create a new file in the ParksAPI.Solution/ParksAPI directory named `appsettings.json`
-  2. Add in the following code snippet to the new appsettings.json file:
-
-```
+### AppSettings.JSON
+\
+In the file `KabloomClient\appsettings.json`, you will find the following code:
+```JSON
 {
-   "Logging": {
-       "LogLevel": {
-       "Default": "Warning"
-       }
-   },
-   "AllowedHosts": "*",
-   "ConnectionStrings": {
-       "DefaultConnection": "Server=localhost;Port=3306;database=kabloomTrefleApi;uid=root;pwd=YourPassword;"
-   }
+    "Logging": {
+        "LogLevel": {
+            "Default": "Warning"
+        }
+    },
+
+    "AllowedHosts": "*",
+    "ConnectionStrings": {
+        "DefaultConnection": "Server=localhost;Port=3306;database=kabloomTrefleApi;uid=USER;pwd=PASSWORD;"
+    }
+}
+```
+Replace "USER" and "PASSWORD" with the username and password associated with your local MySql settings. You may also need to update `Server=localhost` or `Port=3306` to match your local settings.
+
+
+### EnvironmentVariables.CS, and Finding Your Keys
+\
+This project utilizes connections to APIs provided by [Trefle](https://trefle.io/) and [FourSquare](https://foursquare.com/). Each of these products will require unique credentials, which you will need to acquire before running this product.
+
+1. To sign up for a Trefle API Key, select **Get Started** on [their website](https://trefle.io/). Once you fully create and complete your account, you will receive an API key. Keep this handy.
+
+2. To sign up for a FourSquare API key, sign up at their [Developer's website](https://developer.foursquare.com/) with the link to **Places API**. This is a 'freemium' product -- while you should not need to spend any money to use this API for the scope of this project, you may need to provide a credit card number to prevent query abuses. You will receive a Client ID and a Client Secret. Keep both of these handy.
+
+3. In the folder `KabloomClient\Models`, create a file called `EnvironmentVariables.cs` In this file, input the following code:
+
+```C#
+namespace KabloomClient.Models
+{
+    public static class EnvironmentVariables
+    {
+        public static string ApiKey = "YOUR-TREFLE-KEY-HERE";
+        public static string FourSquareId = "YOUR-FOURSQUARE-CLIENT-ID-HERE";
+        public static string FourSquareSecret = "YOUR-FOURSQUARE-CLIENT-SECRET-HERE";
+    }
 }
 ```
 
-3. Change the server, port, and user id as necessary. Replace 'YourPassword' with relevant MySQL password (set at installation of MySQL).
+4. Insert your Trefle Key, FourSquare Client ID, and FourSquare Client Secret in the labeled places.
+----
+## Launching the Project
 
-- Update the Server, Port, and User ID as needed.
+In your terminal, navigate to `KabloomClient`, and run the following commands. Wait for each command to complete before moving to the next step.
+```
+$ dotnet restore
+$ dotnet ef database update
+$ dotnet build
+$ dotnet run
+```
 
-Import Database using Entity Framework Core
+In your browser, navigate to _https://localhost:5001_. This is the project!
 
-- Type `dotnet ef database update` into the terminal to create your database tables.
 
 ## 🛰️ API Documentation
 
@@ -103,7 +139,7 @@ We decided to sign up and obtain an Api Key for the free Trefle API, which gives
 
 #### Sample JSON Response
 
-```
+```JSON
 {
     "id": 678281,
     "common-name": "Evergreen Oak",
@@ -112,9 +148,42 @@ We decided to sign up and obtain an Api Key for the free Trefle API, which gives
 }
 ```
 
+We are also utilizing the [FourSquare Places API](https://developer.foursquare.com/docs/places-api/), which allows for access to data for millions of businesses around the world. We are filtering based on the business _categoryId_ for Garden Center, and query by city name.
+
+#### Sample JSON response:
+```JSON
+{ // For location query: Seattle, WA //
+    "meta": {
+        "code": 200,
+        "requestId": " [ ... ] "
+    },
+    "response": {
+        "venues": [
+            {
+                "id": "5cd87b45947c05002cd5dcbf",
+                "name": "Fred Meyer Garden Center",
+                "location": {
+                    [ ... ]
+                    "formattedAddress": [
+                        "915 NW 45th St",
+                        "Seattle, WA 98107",
+                        "United States"
+                    ]
+                },
+                [ ... ]
+            },
+            [ ... ]
+        ]
+        [ ... ]
+    }
+}
+
+```
+
 # 🪲 Bugs / Issues
 
-- None currently to note
+- Launching the project sometimes reroutes to _https://localhost:5001/index.html_ instead of _https://localhost:5001/_. index.html is not a valid page.
+- The registration page occasionally (but not always) re-routes to a broken page after creating a new account.
 
 # ☎️ Support / Contact Details
 
@@ -144,6 +213,7 @@ We decided to sign up and obtain an Api Key for the free Trefle API, which gives
 - VSCode
 - Webflow
 - Trefle
+- FourSquare
 
 </details>
 
